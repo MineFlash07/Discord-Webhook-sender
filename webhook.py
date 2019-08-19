@@ -14,7 +14,11 @@ def main():
     global data
     try:
         with open("settings.json") as fileout:
-            data = json.load(fileout)
+            try:
+                data = json.load(fileout)
+            except json.decoder.JSONDecodeError:
+                print_system_message("Error in JSON Formatting")
+                return
     except FileNotFoundError:
         print_system_message("Settings file does not exit")
         write_in_settings(data)
@@ -35,9 +39,8 @@ def main():
     try:
         result.raise_for_status()
     except requests.exceptions.HTTPError as err:
-        print("Error:" + err)
+        print("Error:" + str(err))
         print("Error Text:" + result.content)
-
 
 
 def print_system_message(message: str):
