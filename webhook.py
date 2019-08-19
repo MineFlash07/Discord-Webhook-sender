@@ -31,7 +31,12 @@ def main():
         }
         write_in_settings(data)
         return
-    requests.post(data["url"], data=data["webhook"])
+    result = requests.post(data["url"], json=data["webhook"])
+    try:
+        result.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        print("Error:" + err)
+        print("Error Text:" + result.content)
 
 
 
