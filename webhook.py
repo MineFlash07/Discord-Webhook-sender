@@ -44,3 +44,7 @@ def print_system_message(message: str):
 def write_in_settings(file_input):
     with open("settings.json", "w") as fileout:
         fileout.write(json.dumps(file_input, indent=4))
+
+
+if __name__ == '__main__':
+    main()
